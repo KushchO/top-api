@@ -1,9 +1,9 @@
 import { prop } from '@typegoose/typegoose'
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
 
-export interface AuthModel extends Base {}
+export interface UserModel extends Base {}
 
-export class AuthModel extends TimeStamps implements AuthModel {
+export class UserModel extends TimeStamps implements UserModel {
   @prop({ unique: true })
   email: string
 

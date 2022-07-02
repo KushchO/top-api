@@ -22,10 +22,7 @@ export class ProductModel extends TimeStamps implements ProductModel {
   price: number
 
   @prop()
-  oldPrice: number
-
-  @prop()
-  calculatingRating: number
+  oldPrice?: number
 
   @prop()
   description: string
