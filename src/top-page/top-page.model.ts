@@ -24,7 +24,7 @@ export class TopPageHH {
   seniorSalary: number
 }
 
-export class TopPAgeAdvantages {
+export class TopPageAdvantages {
   @prop()
   title: string
 
@@ -39,15 +39,20 @@ export class TopPageModel extends TimeStamps implements TopPageModel {
   @prop()
   secondCategory: string
 
+  @prop({ unique: true })
+  alias: string
+
   @prop()
   title: string
 
   @prop()
   category: string
+
+  @prop({ type: () => TopPageHH })
   hh?: TopPageHH
 
-  @prop({ type: () => [TopPAgeAdvantages] })
-  advantages: TopPAgeAdvantages[]
+  @prop({ type: () => [TopPageAdvantages] })
+  advantages: TopPageAdvantages[]
 
   @prop()
   seoText: string
