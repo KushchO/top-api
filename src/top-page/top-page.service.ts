@@ -36,4 +36,16 @@ export class TopPageService {
       .find({ firstLevelCatagory }, { alias: 1, secondCategory: 1, title: 1 })
       .exec()
   }
+
+  async textSearch(text: string): Promise<DocumentType<TopPageModel>[]> {
+    console.log(text)
+    return this.topPageModel
+      .find({
+        $text: {
+          $search: text,
+          $caseSensitive: false,
+        },
+      })
+      .exec()
+  }
 }

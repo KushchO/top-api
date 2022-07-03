@@ -76,7 +76,11 @@ export class TopPageController {
   @HttpCode(200)
   @Post('/find-by-category')
   async find(@Body() dto: FindTopPageDto) {
-    const topPages = await this.topPageService.findTopPagesByCategory(dto)
-    return topPages
+    return this.topPageService.findTopPagesByCategory(dto)
+  }
+
+  @Get('textSearch/:text')
+  async textSearch(@Param('text') text: string) {
+    return this.topPageService.textSearch(text)
   }
 }
