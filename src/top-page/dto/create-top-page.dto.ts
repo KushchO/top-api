@@ -38,7 +38,7 @@ export class TopPageAdvantagesDto {
 export class CreateTopPageDto {
   @IsNotEmpty()
   @IsEnum(TopLevelCategory)
-  readonly firstLevelCatagory: TopLevelCategory
+  readonly firstLevelCategory: TopLevelCategory
 
   @IsString()
   secondCategory: string

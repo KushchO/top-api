@@ -4,10 +4,10 @@ import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
 export interface TopPageModel extends Base {}
 
 export enum TopLevelCategory {
-  Courses,
-  Servisec,
-  Books,
-  Products,
+  Courses = 'courses',
+  Servisec = 'services',
+  Books = 'books',
+  Products = 'products',
 }
 
 export class TopPageHH {
@@ -35,7 +35,7 @@ export class TopPageAdvantages {
 @index({ title: 'text', seoText: 'text' })
 export class TopPageModel extends TimeStamps implements TopPageModel {
   @prop({ enum: TopLevelCategory })
-  firstLevelCatagory: TopLevelCategory
+  firstLevelCategory: TopLevelCategory
 
   @prop()
   secondCategory: string

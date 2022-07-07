@@ -2,7 +2,7 @@ import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types'
 import { InjectModel } from 'nestjs-typegoose'
 import { CreateTopPageDto } from './dto/create-top-page.dto'
 import { FindTopPageDto } from './dto/find-top-page.dto'
-import { TopPageModel } from './top-page.model'
+import { TopLevelCategory, TopPageModel } from './top-page.model'
 
 export class TopPageService {
   constructor(@InjectModel(TopPageModel) private readonly topPageModel: ModelType<TopPageModel>) {}
@@ -27,16 +27,19 @@ export class TopPageService {
     return this.topPageModel.findByIdAndUpdate(id, dto, { new: true }).exec()
   }
 
-  async findTopPagesByCategory({
-    firstLevelCatagory,
-  }: FindTopPageDto): Promise<
-    DocumentType<Pick<TopPageModel, 'alias' | 'secondCategory' | 'title'>>[]
-  > {
+  async findTopPagesByCategory(firstLevelCategory: TopLevelCategory) {
+    console.log(firstLevelCategory)
     return this.topPageModel
-      .find({ firstLevelCatagory }, { alias: 1, secondCategory: 1, title: 1 })
+      .aggregate()
+      .match({
+        firstLevelCategory: firstLevelCategory,
+      })
+      .group({
+        _id: { secondCategory: '$secondCategory' },
+        pages: { $push: { alias: '$alias', title: '$title' } },
+      })
       .exec()
   }
-
   async textSearch(text: string): Promise<DocumentType<TopPageModel>[]> {
     console.log(text)
     return this.topPageModel
